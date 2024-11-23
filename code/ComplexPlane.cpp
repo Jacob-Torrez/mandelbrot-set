@@ -24,9 +24,7 @@ void ComplexPlane::updateRender() {
 
 		for (int i = 0; i < THREAD_COUNT; i++) {
 			cout << "Creating thread" << endl;
-			t.emplace_back([this, chunkSize, i] {
-				this->updateRenderMultiThread(chunkSize, i);
-			});
+			t.emplace_back(&ComplexPlane::updateRenderMultiThread, this, chunkSize, i);
 		}
 
 		for (auto& th : t) {
